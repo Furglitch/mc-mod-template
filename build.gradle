@@ -2,6 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.11-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
+    id "io.github.pacifistmc.forgix" version "1.3.4"
 }
 
 architectury {
@@ -71,4 +72,22 @@ subprojects {
             // retrieving dependencies.
         }
     }
+}
+
+forgix {
+    group = rootProject.maven_group
+    archiveClassifier = "merged"
+    archiveVersion = rootProject.mod_version
+    
+    fabric {
+        inputJar = project(":fabric").tasks.remapJar.archiveFile
+    }
+    neoforge {
+        inputJar = project(":neoforge").tasks.remapJar.archiveFile
+    }
+}
+
+tasks.named("mergeJars").configure {
+    inputs.files(project(":fabric").tasks.remapJar.archiveFile)
+    inputs.files(project(":neoforge").tasks.remapJar.archiveFile)
 }
