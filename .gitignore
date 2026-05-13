@@ -20,10 +20,11 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# Architectury Specific
+.architectury-transformer/
+
 # VSCode
 .vscode/
 
 # Runtime-generated files
-neoforge/run
-fabric/run
-common/run
+**/run/

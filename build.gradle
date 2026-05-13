@@ -2,11 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.11-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
-    id "io.github.pacifistmc.forgix" version "1.3.4"
-}
-
-architectury {
-    minecraft = project.minecraft_version
+    // id "io.github.pacifistmc.forgix" version "1.3.4"
 }
 
 allprojects {
@@ -19,9 +15,32 @@ subprojects {
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
 
+    // Determine version from project name  
+    def versionFolder = null
+    if (project.name.startsWith('1-21-1-')) {
+        versionFolder = '1-21-1'
+        project.ext.minecraft_version = rootProject.mc_1_21_1_minecraft_version
+        project.ext.architectury_api_version = rootProject.mc_1_21_1_architectury_api_version
+        project.ext.fabric_loader_version = rootProject.mc_1_21_1_fabric_loader_version
+        project.ext.fabric_api_version = rootProject.mc_1_21_1_fabric_api_version
+        project.ext.neoforge_version = rootProject.mc_1_21_1_neoforge_version
+        project.ext.enabled_platforms = rootProject.mc_1_21_1_enabled_platforms
+    } else if (project.name.startsWith('1-20-1-')) {
+        versionFolder = '1-20-1'
+        project.ext.minecraft_version = rootProject.mc_1_20_1_minecraft_version
+        project.ext.architectury_api_version = rootProject.mc_1_20_1_architectury_api_version
+        project.ext.fabric_loader_version = rootProject.mc_1_20_1_fabric_loader_version
+        project.ext.fabric_api_version = rootProject.mc_1_20_1_fabric_api_version
+        project.ext.forge_version = rootProject.mc_1_20_1_forge_version
+        project.ext.enabled_platforms = rootProject.mc_1_20_1_enabled_platforms
+    }
+
     base {
-        // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-        archivesName = "$rootProject.archives_name-$project.name"
+        if (versionFolder) {
+            archivesName = "$rootProject.archives_name-${project.name}"
+        } else {
+            archivesName = "$rootProject.archives_name-$project.name"
+        }
     }
 
     repositories {
@@ -37,7 +56,7 @@ subprojects {
     }
 
     dependencies {
-        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        minecraft "net.minecraft:minecraft:${project.minecraft_version}"
         mappings loom.officialMojangMappings()
     }
 
@@ -74,20 +93,23 @@ subprojects {
     }
 }
 
+// Forgix configuration disabled for now - uncomment when needed
+/*
 forgix {
     group = rootProject.maven_group
-    archiveClassifier = "merged"
+    archiveClassifier = "1-21-1"
     archiveVersion = rootProject.mod_version
     
     fabric {
-        inputJar = project(":fabric").tasks.remapJar.archiveFile
+        inputJar = project(":1-21-1-fabric").tasks.remapJar.archiveFile
     }
     neoforge {
-        inputJar = project(":neoforge").tasks.remapJar.archiveFile
+        inputJar = project(":1-21-1-neoforge").tasks.remapJar.archiveFile
     }
 }
 
 tasks.named("mergeJars").configure {
-    inputs.files(project(":fabric").tasks.remapJar.archiveFile)
-    inputs.files(project(":neoforge").tasks.remapJar.archiveFile)
+    inputs.files(project(":1-21-1-fabric").tasks.remapJar.archiveFile)
+    inputs.files(project(":1-21-1-neoforge").tasks.remapJar.archiveFile)
 }
+*/

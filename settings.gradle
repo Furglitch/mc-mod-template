@@ -10,6 +10,20 @@ pluginManagement {
 
 rootProject.name = 'example_mod'
 
-include 'common'
-include 'fabric'
-include 'neoforge'
+// 1.21.1 projects (flat naming for better Gradle compatibility)
+include '1-21-1-common'
+include '1-21-1-fabric'
+include '1-21-1-neoforge'
+
+project(':1-21-1-common').projectDir = file('1-21-1/common')
+project(':1-21-1-fabric').projectDir = file('1-21-1/fabric')
+project(':1-21-1-neoforge').projectDir = file('1-21-1/neoforge')
+
+// 1.20.1 projects
+include '1-20-1-common'
+include '1-20-1-fabric'
+include '1-20-1-forge'
+
+project(':1-20-1-common').projectDir = file('1-20-1/common')
+project(':1-20-1-fabric').projectDir = file('1-20-1/fabric')
+project(':1-20-1-forge').projectDir = file('1-20-1/forge')
