@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenCentral()
         maven { url = 'https://maven.fabricmc.net/' }
         maven { url = 'https://maven.architectury.dev/' }
         maven { url = 'https://files.minecraftforge.net/maven/' }
@@ -10,20 +11,20 @@ pluginManagement {
 
 rootProject.name = 'example_mod'
 
-// 1.21.1 projects (flat naming for better Gradle compatibility)
-include '1-21-1-common'
-include '1-21-1-fabric'
-include '1-21-1-neoforge'
+// 1.21.1 projects (names must be valid Java identifiers for Architectury inject compatibility)
+include 'v1211common'
+include 'v1211fabric'
+include 'v1211neoforge'
 
-project(':1-21-1-common').projectDir = file('1-21-1/common')
-project(':1-21-1-fabric').projectDir = file('1-21-1/fabric')
-project(':1-21-1-neoforge').projectDir = file('1-21-1/neoforge')
+project(':v1211common').projectDir = file('1-21-1/common')
+project(':v1211fabric').projectDir = file('1-21-1/fabric')
+project(':v1211neoforge').projectDir = file('1-21-1/neoforge')
 
 // 1.20.1 projects
-include '1-20-1-common'
-include '1-20-1-fabric'
-include '1-20-1-forge'
+include 'v1201common'
+include 'v1201fabric'
+include 'v1201forge'
 
-project(':1-20-1-common').projectDir = file('1-20-1/common')
-project(':1-20-1-fabric').projectDir = file('1-20-1/fabric')
-project(':1-20-1-forge').projectDir = file('1-20-1/forge')
+project(':v1201common').projectDir = file('1-20-1/common')
+project(':v1201fabric').projectDir = file('1-20-1/fabric')
+project(':v1201forge').projectDir = file('1-20-1/forge')
