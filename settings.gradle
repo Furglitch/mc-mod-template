@@ -11,7 +11,7 @@ pluginManagement {
 
 rootProject.name = 'example_mod'
 
-// 1.21.1 projects (names must be valid Java identifiers for Architectury inject compatibility)
+// 1.21.1 projects
 include 'v1211common'
 include 'v1211fabric'
 include 'v1211neoforge'
