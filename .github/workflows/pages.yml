@@ -2,7 +2,7 @@ name: GitHub Pages Deploy
 
 on:
   push:
-      branches: ["1.21.1-NeoForge"]
+      branches: ["main"]
       paths:
           - '.github/workflows/pages.yml'
           - 'docs/**'
